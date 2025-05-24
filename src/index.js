@@ -49,4 +49,8 @@ export async function runDocgen({ input, output }) {
     components.map((c) => c.name)
   );
   console.log('✅ Docs generated successfully.');
+  console.log('\n💬 Got suggestions or found bugs?');
+  console.log(
+    '🛠  Submit feedback here: https://github.com/manjunani/PropCreep/issues'
+  );
 }

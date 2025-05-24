@@ -3,7 +3,6 @@ import { generateAIDocOpenAI } from './generateAIDocOpenAI.js';
 import { generateAIDocGemini } from './generateAIDocGemini.js';
 
 export async function generateDoc(comp) {
-  console.log(process.env.PROP_AI_MODE, 'mode from env');
   const mode = process.env.PROP_AI_MODE || 'static';
   console.log('mode is', mode);
 

@@ -62,6 +62,15 @@ await fs.copy(generatedDataPath, path.join(userProjectReportPath, 'data'));
 
 console.log('✅ PropCreep report generated at ./propcreep-report');
 
+if (options.feedback) {
+  console.log('\n💬 Drop feedback or ideas at:');
+  console.log(
+    'https://github.com/manjunani/PropCreep/issues/new?labels=feedback'
+  );
+  open('https://github.com/manjunani/PropCreep/issues/new?labels=feedback');
+  process.exit(0);
+}
+
 // 🌐 Launch viewer if requested
 if (options.view) {
   console.log('🚀 Launching viewer at http://localhost:5173...');
