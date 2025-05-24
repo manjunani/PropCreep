@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 import { runDocgen } from '../src/index.js';
 import { program } from 'commander';
 import dotenv from 'dotenv';
@@ -6,14 +7,18 @@ import { exec } from 'child_process';
 import open from 'open';
 import fs from 'fs-extra';
 import path from 'path';
-const viewerPath = path.resolve('viewer');
+import { fileURLToPath } from 'url';
 
-// Load from .env (if present)
+// Get __dirname in ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Load .env if present
 dotenv.config();
 
-// Configure CLI
+// Define CLI flags
 program
-  .version('1.0.0')
+  .version('1.0.7')
   .description('Generate component documentation')
   .option('-i, --input <path>', 'Input folder', './src')
   .option('-o, --output <path>', 'Output folder', './ui/public/data')
@@ -25,32 +30,41 @@ program
 
 const options = program.opts();
 
-// 🔐 Set environment variables from CLI (override .env)
+// 🔐 Apply CLI overrides for environment variables
 if (options.ai) process.env.PROP_AI_MODE = options.ai;
 if (options.openaiKey) process.env.OPENAI_API_KEY = options.openaiKey;
 if (options.geminiKey) process.env.GEMINI_API_KEY = options.geminiKey;
 
-// 🧠 Run your docgen logic
+// 🧠 Run doc generation
 await runDocgen(options);
 
+// 📁 Path Setup
 const userProjectReportPath = path.resolve('./propcreep-report');
-const generatedDataPath = path.resolve(options.output); // e.g., ./docs
-const builtViewerPath = path.resolve('./viewer'); // from your package
+const generatedDataPath = path.resolve(options.output);
+const builtViewerPath = path.resolve(__dirname, '../viewer'); // ⬅️ This is the fix!
 
-// Step 1: Clean + Create final output path
+// 🔄 Clean + rebuild report output
 await fs.remove(userProjectReportPath);
 await fs.ensureDir(userProjectReportPath);
 
-// Step 2: Copy built viewer UI
+// 🧱 Copy UI files into report
+if (!fs.existsSync(path.join(builtViewerPath, 'index.html'))) {
+  console.error(
+    '❌ Built viewer UI not found. Did you run `npm run build` in /ui and copy to /viewer?'
+  );
+  process.exit(1);
+}
 await fs.copy(builtViewerPath, userProjectReportPath);
 
-// Step 3: Copy JSON data into viewer/data
+// 📦 Copy JSON data into report/data
 await fs.ensureDir(path.join(userProjectReportPath, 'data'));
 await fs.copy(generatedDataPath, path.join(userProjectReportPath, 'data'));
 
-// 🌐 Serve Viewer if requested
+console.log('✅ PropCreep report generated at ./propcreep-report');
+
+// 🌐 Launch viewer if requested
 if (options.view) {
-  console.log('🚀 Launching viewer at http://localhost:5173');
+  console.log('🚀 Launching viewer at http://localhost:5173...');
   exec('npx serve ./propcreep-report -l 5173 -s');
   open('http://localhost:5173');
 }
