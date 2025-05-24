@@ -47,7 +47,15 @@ export async function parseComponent(filePath) {
       }
 
       if (node.type === 'ExportDefaultDeclaration') {
-        const name = node.declaration?.name || 'default';
+        let name = 'default';
+        const decl = node.declaration;
+
+        if (decl.type === 'FunctionDeclaration' && decl.id?.name) {
+          name = decl.id.name;
+        } else if (decl.type === 'Identifier') {
+          name = decl.name;
+        }
+
         components.push({
           filePath,
           name,
