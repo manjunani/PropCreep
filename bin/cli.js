@@ -4,7 +4,7 @@ import { program } from 'commander';
 import dotenv from 'dotenv';
 import { exec } from 'child_process';
 import open from 'open';
-
+import fs from 'fs-extra';
 import path from 'path';
 const viewerPath = path.resolve('viewer');
 
@@ -33,9 +33,24 @@ if (options.geminiKey) process.env.GEMINI_API_KEY = options.geminiKey;
 // 🧠 Run your docgen logic
 await runDocgen(options);
 
+const userProjectReportPath = path.resolve('./propcreep-report');
+const generatedDataPath = path.resolve(options.output); // e.g., ./docs
+const builtViewerPath = path.resolve('./viewer'); // from your package
+
+// Step 1: Clean + Create final output path
+await fs.remove(userProjectReportPath);
+await fs.ensureDir(userProjectReportPath);
+
+// Step 2: Copy built viewer UI
+await fs.copy(builtViewerPath, userProjectReportPath);
+
+// Step 3: Copy JSON data into viewer/data
+await fs.ensureDir(path.join(userProjectReportPath, 'data'));
+await fs.copy(generatedDataPath, path.join(userProjectReportPath, 'data'));
+
 // 🌐 Serve Viewer if requested
 if (options.view) {
   console.log('🚀 Launching viewer at http://localhost:5173');
-  exec(`npx serve ${viewerPath} -l 5173 -s`);
+  exec('npx serve ./propcreep-report -l 5173 -s');
   open('http://localhost:5173');
 }
