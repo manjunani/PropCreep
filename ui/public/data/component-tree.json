@@ -1,0 +1,22 @@
+{
+  "src": {
+    "components": {
+      "Button.jsx": {
+        "__components": [
+          "Button"
+        ]
+      },
+      "FatComponent.jsx": {
+        "__components": [
+          "DataGrid",
+          "ReportCard"
+        ]
+      },
+      "Test.jsx": {
+        "__components": [
+          "Test"
+        ]
+      }
+    }
+  }
+}

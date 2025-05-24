@@ -1,0 +1,49 @@
+{
+  "name": "propcreep-insight",
+  "version": "1.0.0",
+  "description": "Generate a tree and documentation of React components.",
+  "main": "src/index.js",
+  "bin": {
+    "component-docgen": "./bin/cli.js"
+  },
+  "type": "module",
+  "scripts": {
+    "start": "node bin/cli.js",
+    "dev-ui": "cd ui && npm install && vite",
+    "build-ui": "cd ui && npm install && vite build"
+  },
+  "keywords": [
+    "react",
+    "documentation",
+    "cli",
+    "component",
+    "docgen",
+    "react",
+    "docgen",
+    "component-insight",
+    "vite",
+    "cli",
+    "bundle-analyzer",
+    "storybook-lite"
+  ],
+  "author": "manju bro",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/parser": "^7.23.3",
+    "@babel/traverse": "^7.23.3",
+    "@google/generative-ai": "^0.24.1",
+    "commander": "^11.1.0",
+    "dotenv": "^16.5.0",
+    "fs-extra": "^11.2.0",
+    "globby": "^13.2.2",
+    "mermaid": "^11.6.0",
+    "openai": "^4.103.0",
+    "react-docgen-typescript": "^2.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "vite": "^5.0.0"
+  }
+}
