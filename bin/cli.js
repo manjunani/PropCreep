@@ -5,6 +5,9 @@ import dotenv from 'dotenv';
 import { exec } from 'child_process';
 import open from 'open';
 
+import path from 'path';
+const viewerPath = path.resolve('viewer');
+
 // Load from .env (if present)
 dotenv.config();
 
@@ -30,12 +33,9 @@ if (options.geminiKey) process.env.GEMINI_API_KEY = options.geminiKey;
 // 🧠 Run your docgen logic
 await runDocgen(options);
 
-// const viewerDataPath = './viewer/data';
-// await fs.copy(options.output, viewerDataPath);
-
 // 🌐 Serve Viewer if requested
 if (options.view) {
   console.log('🚀 Launching viewer at http://localhost:5173');
-  exec('npx serve viewer -l 5173 -s');
+  exec(`npx serve ${viewerPath} -l 5173 -s`);
   open('http://localhost:5173');
 }
