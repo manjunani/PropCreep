@@ -30,8 +30,8 @@ if (options.geminiKey) process.env.GEMINI_API_KEY = options.geminiKey;
 // 🧠 Run your docgen logic
 await runDocgen(options);
 
-const viewerDataPath = './viewer/data';
-await fs.copy(options.output, viewerDataPath);
+// const viewerDataPath = './viewer/data';
+// await fs.copy(options.output, viewerDataPath);
 
 // 🌐 Serve Viewer if requested
 if (options.view) {
