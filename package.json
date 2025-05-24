@@ -26,7 +26,11 @@
     "bundle-analyzer",
     "storybook-lite"
   ],
-  "author": "manju bro",
+  "author": "Manjunatha Sai Uppu",
+  "private": false,
+  "publishConfig": {
+    "access": "restricted"
+  },
   "license": "MIT",
   "dependencies": {
     "@babel/parser": "^7.23.3",
