@@ -161,8 +161,7 @@ PROP_AI_MODE=static
 
 ## 🧙 About the Creator
 
-**PropCreep Insight** is crafted by [manju bro], for devs who want speed, insight, and real offline power.  
-No fluff. No BS. Just actionable structure and smart docs.
+**PropCreep Insight** is crafted by [Manjunatha], for devs who want speed, insight, and real offline power.No fluff. No BS. Just actionable structure and smart docs.
 
 ---
 
