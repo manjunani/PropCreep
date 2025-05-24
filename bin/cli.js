@@ -2,7 +2,7 @@
 import { runDocgen } from '../src/index.js';
 import { program } from 'commander';
 import dotenv from 'dotenv';
-import httpServer from 'http-server';
+import { exec } from 'child_process';
 import open from 'open';
 
 // Load from .env (if present)
@@ -35,9 +35,7 @@ await runDocgen(options);
 
 // 🌐 Serve Viewer if requested
 if (options.view) {
-  const server = httpServer.createServer({ root: './viewer' });
-  server.listen(5173, () => {
-    console.log('🔍 Viewer available at http://localhost:5173');
-    open('http://localhost:5173');
-  });
+  console.log('🚀 Launching viewer at http://localhost:5173');
+  exec('npx serve viewer -l 5173 -s');
+  open('http://localhost:5173');
 }
