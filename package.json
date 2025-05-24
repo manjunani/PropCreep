@@ -1,5 +1,5 @@
 {
-  "name": "propcreep-insight",
+  "name": "@manjunath/propcreep-insight",
   "version": "1.0.0",
   "description": "Generate a tree and documentation of React components.",
   "main": "src/index.js",
