@@ -7,7 +7,18 @@
 ## 📦 TL;DR
 
 ```bash
-npx propcreep --input ./src --output ./docs
+npx propcreep-insight --input ./src --output ./docs
+# Generate docs in static mode (default)
+npx propcreep-insight
+
+# OpenAI mode
+npx propcreep-insight --ai openai --openai-key sk-abc123
+
+# Gemini mode
+npx propcreep-insight --ai gemini --gemini-key gem-abc123
+
+# Launch viewer
+npx propcreep-insight --view
 ```
 
 - 📁 Visualizes your full component tree  
